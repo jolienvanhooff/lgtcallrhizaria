@@ -3,18 +3,10 @@
 #functions for preparing input data in detecting gene origins
 #note the types of input files and their separators, input given by config.ini via master script
 
-import sys
-import os
 import pandas as pd
 from ete3 import NCBITaxa
 ncbi = NCBITaxa()
-
-def mkdir_and_cd(dir_name):
-    try:
-        os.mkdir(dir_name)
-    except FileExistsError:
-        pass
-    os.chdir(dir_name)
+from functions import mkdir_and_cd
 
 def get_oglist(infile):
     with open(infile, 'r') as f:

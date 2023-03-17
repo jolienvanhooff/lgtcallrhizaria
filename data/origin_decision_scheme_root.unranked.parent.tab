@@ -1,0 +1,6 @@
+group_first_parent	clade_first_parent	origin	donor
+SAR	NA	vertical	NA
+eukaryotes	0	lateral	clade_first_parent
+eukaryotes	2759	vertical	NA
+mix	NA	lateral	ND
+prokaryotes	NA	lateral	clade_first_parent

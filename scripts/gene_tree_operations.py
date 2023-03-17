@@ -817,7 +817,7 @@ def detect_origin_root(scheme, group_first_parent, clade_first_parent, taxonomy_
     return(origin, donor, donor_phylum, donor_domain)
 
 
-def notung(clusterfile, og, nodename, newick_rhizaria, support_threshold, rooting=False):
+def notung(clusterfile, og, nodename, newick_rhizaria, support_threshold, rooting=False, notung_path="Notung-2.9.1.5.jar"):
     """First generates Notung input, then applies Notung rearrange to the rhizarian (sub)tree"""
     notung_output = f"{og}_{nodename}_notung"
     globalresult=None
@@ -825,7 +825,7 @@ def notung(clusterfile, og, nodename, newick_rhizaria, support_threshold, rootin
     tree_rooted=""
     if rooting == True:
         notung_root = f"{og}_{nodename}_notung_root"
-        cmd = f"java -jar /home/jolien/tools/Notung-2.9.1.5/Notung-2.9.1.5.jar -g {clusterfile} -s {newick_rhizaria} --absfilenames --root --infertransfers false --speciestag prefix --treeoutput newick --outputdir {notung_root}"
+        cmd = f"java -jar {notung_path} -g {clusterfile} -s {newick_rhizaria} --absfilenames --root --infertransfers false --speciestag prefix --treeoutput newick --outputdir {notung_root}"
         status = bash_command(cmd)
         if status:
             clusterfile=f"{notung_root}/{clusterfile}.rooting.0"
@@ -833,7 +833,7 @@ def notung(clusterfile, og, nodename, newick_rhizaria, support_threshold, rootin
         else:
             print(f"{notung_root}: notung rooting failed")
             return globalresult, speciesresult
-    cmd = f"java -jar /home/jolien/tools/Notung-2.9.1.5/Notung-2.9.1.5.jar -g {clusterfile} -s {newick_rhizaria} --absfilenames --rearrange --infertransfers false --speciestag prefix --threshold {support_threshold} --edgeweights name --treeoutput nhx --outputdir {notung_output} --events --parsable --homologtablecsv"
+    cmd = f"java -jar {notung_path} -g {clusterfile} -s {newick_rhizaria} --absfilenames --rearrange --infertransfers false --speciestag prefix --threshold {support_threshold} --edgeweights name --treeoutput nhx --outputdir {notung_output} --events --parsable --homologtablecsv"
     status = bash_command(cmd)
     if status:
         resultfile = f'{notung_output}/{clusterfile}.rearrange.0.parsable.txt'

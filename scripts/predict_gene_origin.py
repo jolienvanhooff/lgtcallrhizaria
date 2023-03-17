@@ -18,15 +18,16 @@ import joblib
 
 # Parse arguments
 parser = argparse.ArgumentParser(description = "This script predicts the origins of rhizarian genes without a phylogeny")
-parser.add_argument("-l", metavar = "list", type=str, default="/datastore/Dropbox/LgtRhizaria/03_GeneTreeInference/OGlist_selection4_5.txt", help = "list of OGs")
-parser.add_argument("-i", metavar = "inputdir", type=str, default='/datastore/Dropbox/LgtRhizaria/03_GeneTreeInference/OGlist_selection4_5_fasta/', help = "directory containing the FASTA files of OGs that should be analysed")
-parser.add_argument('-o', metavar = 'outputdir', type=str, default='output', help='directory for output files (DEFAULT: output)')
+parser.add_argument("-l", metavar = "list", type=str, help = "list of OGs")
+parser.add_argument("-i", metavar = "inputdir", type=str, help = "directory containing the FASTA files of OGs that should be analysed")
+parser.add_argument('-o', metavar = 'outputdir', type=str, default='output_predict', help='directory for output files (DEFAULT: output_predict)')
+parser.add_argument('-c', metavar = 'config', type=str, default='config_files/predict_config.ini', help='path to configuration file (DEFAULT: config_files/predict_config.ini)')
 args = parser.parse_args()
 
 
 # Parse configuration settings from the config file in the current working directory
 config_object = ConfigParser()
-config_object.read("config.ini")
+config_object.read(args.c)
 settings = config_object["DEFAULT"]
 
 # Prepare arguments and configurations

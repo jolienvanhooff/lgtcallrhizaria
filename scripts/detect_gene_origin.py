@@ -6,24 +6,24 @@ import sys
 import pandas as pd
 
 from ete3 import TreeStyle
-sys.path.insert(0, '/datastore/Dropbox/py3_scripts/')
+sys.path.insert(0, 'scrips/')
 from gene_tree_operations import *
 from data_preparations import *
 from configparser import ConfigParser
 ts = TreeStyle()
 sys.setrecursionlimit(10**6)
 
-
 # Parse arguments
-parser = argparse.ArgumentParser(description = "This script identifies the origins of rhizarian genes from phylogenies")
-parser.add_argument("-l", metavar = "list", type=str, default="/datastore/Dropbox/LgtRhizaria/03_GeneTreeInference/Orthogroups_Rhizaria.rhizaria_without_gymspe_eugrot_lepvorcontamin.og_in_id.reordered.txt", help ="list of OGs for which phylogenies are searched for, and, if found, analysed")
-parser.add_argument("-i", metavar = "inputdir", type=str, default='/datastore/Dropbox/LgtRhizaria/03_GeneTreeInference/OG_selection2_3_a_trees_bmge/iqtree_regular', help = "directory in which for each listed OG a corresponding treefile should be searched")
-parser.add_argument('-o', metavar = 'outputdir', type=str, default='output', help='directory for output files (DEFAULT: output)')
+parser = argparse.ArgumentParser(description = "This script identifies the origins ('lateral', 'vertical' or 'invention') of rhizarian genes from phylogenies")
+parser.add_argument("-l", metavar = "list", type=str, help ="list of OGs for which phylogenies are searched for, and, if found, analysed")
+parser.add_argument("-i", metavar = "inputdir", type=str,  help = "directory in which for each listed OG a corresponding treefile should be searched")
+parser.add_argument('-o', metavar = 'outputdir', type=str, default='output_detect', help='directory for output files (DEFAULT: output_detect)')
+parser.add_argument('-c', metavar = 'config', type=str, default='config_files/detect_config.ini', help='path to configuration file (DEFAULT: config_files/detect_config.ini)')
 args = parser.parse_args()
 
 # Parse configuration settings from the config file in the current working directory
 config_object = ConfigParser()
-config_object.read("config.ini")
+config_object.read(args.c)
 settings = config_object["DEFAULT"]
 
 # Prepare arguments and configurations
@@ -32,11 +32,11 @@ inputdir = os.path.abspath(args.i)
 outputdir = args.o
 mkdir_and_cd(outputdir)
 
-taxonomy_prokaryotes = get_full_taxonomies(settings["taxonomy_prokaryotes"]) #dict
-taxonomy_prokaryotes_extended = get_full_taxonomies_all_levels(taxonomy_prokaryotes) #dict
-eukaryotic_supergroups = get_supergroups_taxids(settings["supergroups_eukaryotes"]) #dict
-sar_species_translation = get_translation_abbr_taxids(settings["taxonomy_identifiers_sar"]) #dict
-species_names, phyla, data_types, contig_collections = get_metadata(settings["data_rhizaria"]) #dict
+taxonomy_prokaryotes = get_full_taxonomies(settings["taxonomy_prokaryotes"]) 
+taxonomy_prokaryotes_extended = get_full_taxonomies_all_levels(taxonomy_prokaryotes) 
+eukaryotic_supergroups = get_supergroups_taxids(settings["supergroups_eukaryotes"]) 
+sar_species_translation = get_translation_abbr_taxids(settings["taxonomy_identifiers_sar"]) 
+species_names, phyla, data_types, contig_collections = get_metadata(settings["data_rhizaria"]) 
 newick_rhizaria = settings["newick_rhizaria"]
 root = settings["root"]
 interspersing_proportion_tree = float(settings["interspersing_proportion_tree"])
@@ -51,7 +51,8 @@ do_genome_check = True if settings["genome_check"] == 'True' else False
 do_contamination_check = True if settings["contamination_check"] == 'True' else False
 contamination_sequences = get_contaminants(settings["contamination_signal_diamond"])
 sister_size_threshold = int(settings["sister_size_threshold"])
-do_notung = True if settings["notung"] == True else False
+do_notung = True if settings["notung"] == 'True' else False
+notung_path = settings["notung_path"]
 branch_length_threshold = float(settings["branch_length_threshold"])
 
 # Create or load the output dataframes
@@ -252,7 +253,7 @@ for i, og in enumerate(oglist):
             speciesresult = None
             tree_reconciled = np.nan
             if (do_notung == True) and (len(rhizarian_node_leaves) >= 2):
-                globalresult, speciesresult, tree_reconciled, _ = notung(node_nhx, og, n.anc, newick_rhizaria, support_threshold)
+                globalresult, speciesresult, tree_reconciled, _ = notung(node_nhx, og, n.anc, newick_rhizaria, support_threshold, notung_path=notung_path)
                 duplication = globalresult['nD'][0]
                 loss = globalresult['nL'][0]
                 lca = globalresult[' root(G)'][0]
@@ -319,7 +320,7 @@ for i, og in enumerate(oglist):
             # Save the first version of the tree
             node_nhx_prerec = f"{og}.prerec.NHX"
             tree.write(features=[], outfile=node_nhx_prerec, format_root_node=True)
-            globalresult, speciesresult, tree_reconciled, _ = notung(node_nhx_prerec, og, n.anc, newick_rhizaria, support_threshold)
+            globalresult, speciesresult, tree_reconciled, _ = notung(node_nhx_prerec, og, n.anc, newick_rhizaria, support_threshold, notung_path=notung_path)
             duplication = globalresult['nD'][0]
             loss = globalresult['nL'][0]
             lca = globalresult[' root(G)'][0]

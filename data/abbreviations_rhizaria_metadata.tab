@@ -1,0 +1,29 @@
+ParGloRCC365	Partenskyella glossopodia Strain RCC365	Reticulofilosa	transcriptome	NA
+LotGloLEX01	Lotharella globosa LEX01	Reticulofilosa	transcriptome	NA
+Lot_CCMP622	Lotharella oceanica CCMP622	Reticulofilosa	transcriptome	NA
+LotAmoCCMP2058	Amorphochlora amoebiformis Strain CCMP2058	Reticulofilosa	transcriptome	NA
+Gym_CCMP2014	Gymnochlora CCMP2014	Reticulofilosa	transcriptome	NA
+NorSphBC52	Norrisiella sphaerica Strain BC52	Reticulofilosa	transcriptome	NA
+BigNatCCMP2755	Bigelowiella natans CCMP2755	Reticulofilosa	genome	../data/protein_gene_locations/BigNatCCMP2755.protein_gene_location.tsv
+BigLonCCMP242	Bigelowiella longifila Strain CCMP242	Reticulofilosa	transcriptome	NA
+ChlRep	Chlorarachnion reptans	Reticulofilosa	transcriptome	NA
+GutVulBF0784	Guttulinopsis vulgaris BF07-8-4	Monadofilosa	transcriptome	NA
+AurSolAF21	Aurigamonas solis AF-21	Monadofilosa	transcriptome	NA
+PauChr	Paulinella chromatophora	Monadofilosa	transcriptome	NA
+MatSpe	Mataza sp. / unidentified eukaryote D1	Monadofilosa	transcriptome	NA
+AboPro	Abollifer prolabens	Monadofilosa	transcriptome	NA
+BreSpeRG2016a	Brevimastigomonas sp. RG-2016a	Monadofilosa	transcriptome	NA
+PlaBraE3	Plasmodiophora brassicae isolate e3	Endomyxa	genome	../data/protein_gene_locations/PlaBraE3.protein_gene_location.tsv
+SpoSub	Spongospora subterranea	Endomyxa	transcriptome	NA
+LepVor	Leptophrys vorax	Endomyxa	transcriptome	NA
+GroSph	Gromia sphaerica	Endomyxa	transcriptome	NA
+MikMac	Mikrocytos mackini	Endomyxa	transcriptome	NA
+LapGus	Lapot gusevi	Endomyxa	transcriptome	NA
+RetFil	Reticulomyxa filosa	Retaria	transcriptome	NA
+AmmSpe	Ammonia sp.	Retaria	transcriptome	NA
+SorSpe	Sorites sp.	Retaria	transcriptome	NA
+ElpMar	Elphidium margaritaceum	Retaria	transcriptome	NA
+RosSpe	Rosalina sp.	Retaria	transcriptome	NA
+GloSpeGF15	Globobulimina sp. GF15	Retaria	transcriptome	NA
+StiZan	Sticholonche zanclea	Retaria	transcriptome	NA
+LitSet	Lithomelissa setosa	Retaria	transcriptome	NA
