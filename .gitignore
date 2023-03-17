@@ -1,3 +1,6 @@
-/data/Orthogroup_Sequences_Rhizaria.features_for_classifier.csv
-/data/Orthogroup_Sequences_Rhizaria.sequence_histories.csv
-/data/gbc_maxdepth20.joblib
+data/Orthogroup_Sequences_Rhizaria.features_for_classifier.csv
+data/Orthogroup_Sequences_Rhizaria.sequence_histories.csv
+data/gbc_maxdepth20.joblib
+output
+scripts/__pycache__/
+.DS_Store 
