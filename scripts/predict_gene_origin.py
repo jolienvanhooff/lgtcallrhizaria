@@ -35,6 +35,7 @@ settings = config_object["DEFAULT"]
 oglist = [l.rstrip("\n") for l in open(args.l, 'r').readlines()]
 inputdir = os.path.abspath(args.i)
 outputdir = args.o
+mkdir_and_cd(outputdir)
 
 # Extract parameters from the configuration file
 taxonomy_prokaryotes = get_full_taxonomies(settings["taxonomy_prokaryotes"]) #dict
@@ -62,7 +63,6 @@ mean_probability_threshold = float(settings['mean_probability_threshold'])
 species_tree = open_species_tree(newick_rhizaria)
 
 # Create or load the output dataframes
-mkdir_and_cd(outputdir)
 if os.path.isfile(f'results_per_og.csv') is False:
     results_per_og = pd.DataFrame(columns=["orthogroup", "in_fasta", "origin_inferred", "viruses", "acceptors"])
     results_per_acquisition = pd.DataFrame(columns=["orthogroup", "rhizarian_node", "rhizarian_node_sequences", "tree", "tree_parents", "tree_reconciled", "data_check", "contamination_check", "lca", "origin", "donor", "donor_phylum", "donor_domain", "inference", "median_distance_rhizarian_node", "median_distance_sister1", "median_distance_sister2", "duplication", "loss", "acceptor_proportion_node", "virus_proportion_og", "prediction_probability", "genome_check"])
